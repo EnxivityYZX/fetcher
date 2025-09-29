@@ -1,0 +1,77 @@
+local HttpService = game:GetService("HttpService")
+
+local ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ3cGFkaGJpZWF3em5teXRienJmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTkwMTMxNDcsImV4cCI6MjA3NDU4OTE0N30.mi7ZYhOoj5gesuhHhk9Y8gvbtXEpiUKKD8stSk4SW5A"
+local AUTH = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ3cGFkaGJpZWF3em5teXRienJmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTkwMTMxNDcsImV4cCI6MjA3NDU4OTE0N30.mi7ZYhOoj5gesuhHhk9Y8gvbtXEpiUKKD8stSk4SW5A"
+local URL = "https://bwpadhbieawznmytbzrf.supabase.co/rest/v1/keys?select=key_value&order=created_at.desc&limit=1&expires_at=gt.now()"
+
+local function validateKey(inputKey)
+    if not inputKey or type(inputKey) ~= "string" or inputKey == "" then
+        return false
+    end
+    
+    local opts = {
+        Url = URL,
+        Method = "GET",
+        Headers = {
+            ["apikey"] = ANON,
+            ["Authorization"] = AUTH,
+            ["Accept"] = "application/json"
+        }
+    }
+    
+    local res
+    local ok, err
+    
+    if syn and syn.request then
+        ok, res = pcall(function() return syn.request(opts) end)
+        if ok and res then
+        else
+            res = nil
+        end
+    end
+    
+    if not res and request then
+        ok, res = pcall(function() return request(opts) end)
+        if ok and res then
+        else
+            res = nil
+        end
+    end
+    
+    if not res and http_request then
+        ok, res = pcall(function() return http_request(opts) end)
+        if ok and res then
+        else
+            res = nil
+        end
+    end
+    
+    if not res then
+        ok, err = pcall(function() return game:HttpGet(URL, true) end)
+        if ok and err then
+            res = { Success = true, StatusCode = 200, Body = tostring(err) }
+        else
+            res = { Success = false, StatusCode = 500, Body = "" }
+        end
+    end
+    
+    local status = tonumber(res.StatusCode) or nil
+    local success = (res.Success == true) or (status and status >= 200 and status < 300)
+    local body = res.Body or res.body or res.Result or res.response or ""
+    
+    local fetchedKey = nil
+    if success and body and body ~= "" then
+        local parsedOk, parsed = pcall(function() return HttpService:JSONDecode(body) end)
+        if parsedOk and type(parsed) == "table" and #parsed > 0 and parsed[1].key_value then
+            fetchedKey = parsed[1].key_value
+        end
+    end
+    
+    if fetchedKey and inputKey == fetchedKey then
+        return true
+    else
+        return false
+    end
+end
+
+return validateKey

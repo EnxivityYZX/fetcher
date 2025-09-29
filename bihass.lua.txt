@@ -1,0 +1,147 @@
+local validateKey = loadstring(game:HttpGet('loadstring.lua BUT WELL U UPLOAD TS FIRST OK?'))()
+
+local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
+
+local Window = Rayfield:CreateWindow({
+	Name = "StandartHub Window",
+	Icon = 0,
+	LoadingTitle = "Rayfield Interface Suite",
+	LoadingSubtitle = "by Echo",
+	ShowText = "StandArt Hub",
+	Theme = "DarkBlue",
+	ToggleUIKeybind = "K",
+	DisableRayfieldPrompts = false,
+	DisableBuildWarnings = false,
+	ConfigurationSaving = { Enabled = true, FolderName = nil, FileName = "StandArt Hub" },
+	Discord = { Enabled = true, Invite = "NVhr7BRAap", RememberJoins = true },
+	KeySystem = true,
+	KeySettings = {
+		Title = "Standart Key System",
+		Subtitle = "Key System",
+		Note = "Join https://discord.gg/NVhr7BRAap For Key OR ADD seip_dsk on Discord",
+		FileName = "Key",
+		SaveKey = true,
+		Key = { "invalid" },
+		Callback = function(enteredKey)
+			local isValid = validateKey(enteredKey)
+			if isValid then
+				return true
+			else
+				return false
+			end
+		end
+	}
+})
+
+local MainTab = Window:CreateTab("MAIN", 4483362458)
+
+MainTab:CreateButton({
+	Name = "Advance To End",
+	Callback = function()
+		local player = game.Players.LocalPlayer
+		local character = player.Character or player.CharacterAdded:Wait()
+		local hrp = character:WaitForChild("HumanoidRootPart")
+		hrp.CFrame = CFrame.new(2120, -108, 1612)
+		task.wait(1)
+		fireclickdetector(workspace.Layers.Aether.Down.ClickDetector)
+	end,
+})
+
+MainTab:CreateButton({
+	Name = "TP to Aether",
+	Callback = function()
+		local player = game.Players.LocalPlayer
+		local character = player.Character or player.CharacterAdded:Wait()
+		local hrp = character:WaitForChild("HumanoidRootPart")
+		hrp.CFrame = CFrame.new(2120, -108, 1612)
+	end,
+})
+
+local AutoTab = Window:CreateTab("Auto Farm", 4483362458)
+
+local toggleActiveAether = false
+AutoTab:CreateToggle({
+	Name = "Auto Farm Aether",
+	CurrentValue = false,
+	Flag = "AutoFarmAether",
+	Callback = function(Value)
+		toggleActiveAether = Value
+		spawn(function()
+			local player = game.Players.LocalPlayer
+			local character = player.Character or player.CharacterAdded:Wait()
+			local hrp = character:WaitForChild("HumanoidRootPart")
+			local coords = {
+				Vector3.new(2051, -119, 1733), Vector3.new(2029, -119, 1754), Vector3.new(2010, -119, 1734),
+				Vector3.new(2031, -119, 1712), Vector3.new(1971, -107, 1663), Vector3.new(1974, -107, 1639),
+				Vector3.new(2029, -119, 1644), Vector3.new(2051, -119, 1666), Vector3.new(2096, -107, 1692),
+				Vector3.new(2096, -107, 1722), Vector3.new(2096, -107, 1756), Vector3.new(2119, -107, 1756),
+				Vector3.new(2122, -107, 1724), Vector3.new(2120, -107, 1691), Vector3.new(2006, -119, 1665)
+			}
+			while toggleActiveAether do
+				for _, pos in ipairs(coords) do
+					if not toggleActiveAether then break end
+					hrp.CFrame = CFrame.new(pos)
+					task.wait(0.5)
+				end
+			end
+		end)
+	end,
+})
+
+local toggleActiveEnd = false
+AutoTab:CreateToggle({
+	Name = "Auto Farm End",
+	CurrentValue = false,
+	Flag = "AutoFarmEnd",
+	Callback = function(Value)
+		toggleActiveEnd = Value
+		spawn(function()
+			local player = game.Players.LocalPlayer
+			local character = player.Character or player.CharacterAdded:Wait()
+			local hrp = character:WaitForChild("HumanoidRootPart")
+			local coords = {
+				Vector3.new(-21, -127, 1754), Vector3.new(6, -127, 1727), Vector3.new(6, -127, 1781),
+				Vector3.new(-103, -135, 1782), Vector3.new(-79, -135, 1753), Vector3.new(-104, -135, 1727),
+				Vector3.new(-104, -135, 1656), Vector3.new(-78, -135, 1626), Vector3.new(-51, -135, 1651),
+				Vector3.new(-76, -135, 1682), Vector3.new(-9, -135, 1666), Vector3.new(17, -135, 1693),
+				Vector3.new(18, -135, 1638)
+			}
+			while toggleActiveEnd do
+				for _, pos in ipairs(coords) do
+					if not toggleActiveEnd then break end
+					hrp.CFrame = CFrame.new(pos)
+					task.wait(0.5)
+				end
+			end
+		end)
+	end,
+})
+
+local toggleActiveNether = false
+AutoTab:CreateToggle({
+	Name = "Auto Farm Nether",
+	CurrentValue = false,
+	Flag = "AutoFarmNether",
+	Callback = function(Value)
+		toggleActiveNether = Value
+		spawn(function()
+			local player = game.Players.LocalPlayer
+			local character = player.Character or player.CharacterAdded:Wait()
+			local hrp = character:WaitForChild("HumanoidRootPart")
+			local coords = {
+				Vector3.new(-51, -71, -567), Vector3.new(-29, -71, -547), Vector3.new(-48, -71, -525),
+				Vector3.new(-51, -43, -566), Vector3.new(-72, -43, -547), Vector3.new(-52, -43, -526),
+				Vector3.new(-90, -43, -546), Vector3.new(-29, -43, -547), Vector3.new(-10, -43, -548)
+			}
+			while toggleActiveNether do
+				for _, pos in ipairs(coords) do
+					if not toggleActiveNether then break end
+					hrp.CFrame = CFrame.new(pos)
+					task.wait(0.5)
+				end
+			end
+		end)
+	end,
+})
+
+Rayfield:LoadConfiguration()
