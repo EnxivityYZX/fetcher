@@ -1,4 +1,4 @@
-local validateKey = loadstring(game:HttpGet('loadstring.lua BUT WELL U UPLOAD TS FIRST OK?'))()
+local validateKey = loadstring(game:HttpGet('https://raw.githubusercontent.com/EnxivityYZX/fetcher/refs/heads/main/loadstring.lua.txt'))()
 
 local Rayfield = loadstring(game:HttpGet("https://sirius.menu/rayfield"))()
 
