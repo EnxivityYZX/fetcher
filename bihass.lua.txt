@@ -15,22 +15,14 @@ local Window = Rayfield:CreateWindow({
 	ConfigurationSaving = { Enabled = true, FolderName = nil, FileName = "StandArt Hub" },
 	Discord = { Enabled = true, Invite = "NVhr7BRAap", RememberJoins = true },
 	KeySystem = true,
-	KeySettings = {
-		Title = "Standart Key System",
-		Subtitle = "Key System",
-		Note = "Join https://discord.gg/NVhr7BRAap For Key OR ADD seip_dsk on Discord",
-		FileName = "Key",
-		SaveKey = true,
-		Key = { "invalid" },
-		Callback = function(enteredKey)
-			local isValid = validateKey(enteredKey)
-			if isValid then
-				return true
-			else
-				return false
-			end
-		end
-	}
+    KeySettings = {
+        Title = "Standart Key System",
+        Subtitle = "Key System",
+        Note = "Join https://discord.gg/NVhr7BRAap For Key OR ADD seip_dsk on Discord",
+        FileName = "Key",
+        SaveKey = true,
+        Key = { currentValidKey }
+    }
 })
 
 local MainTab = Window:CreateTab("MAIN", 4483362458)
